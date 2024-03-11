@@ -24,5 +24,14 @@ def init_db():
             category_id INTEGER,
             name TEXT,
             FOREIGN KEY(category_id) REFERENCES categories(id)
+            timestamp text
         )''')
         db.commit()
+    with sqlite3.connect('todo') as db:
+        cursor = db.cursor()
+        cursor.execute('''CREATE TRIGGER IF NOT EXISTS date_of_task_trigger 
+        AFTER INSERT ON todo 
+        BEGIN 
+        UPDATE todo SET timestamp = STRFTIME('%Y-%m-%d %H:%M:%f', 'NOW') 
+        WHERE id = NEW.ID; 
+        END''')
