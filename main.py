@@ -36,6 +36,6 @@ if __name__ == '__main__':
 
         with sqlite3.connect('todo') as db:
             cursor = db.cursor()
-            cursor.execute('INSERT INTO tasks (category_id, name) VALUES (?, ?)',(user_task.task_type, user_task.description))
+            cursor.execute('INSERT INTO tasks (category_id, name) VALUES (?, ?)', (user_task.task_type, user_task.description))
             db.commit()
 
